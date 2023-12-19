@@ -66,26 +66,26 @@ Gagal
 <hr style="width:60%; align:center">
 
 ```
-iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.47.4.2 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.47.4.2
+iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.19.4.2 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.19.4.2
 
-iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.47.4.2 -j DNAT --to-destination 10.47.0.10
+iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.19.4.2 -j DNAT --to-destination 10.19.0.10
 
-iptables -A PREROUTING -t nat -p tcp --dport 443 -d 10.47.0.10 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.47.0.10
+iptables -A PREROUTING -t nat -p tcp --dport 443 -d 10.19.0.10 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.19.0.10
 
-iptables -A PREROUTING -t nat  -p tcp --dport 443 -d 10.47.0.10 -j DNAT --to-destination 10.47.4.2
+iptables -A PREROUTING -t nat  -p tcp --dport 443 -d 10.19.0.10 -j DNAT --to-destination 10.19.4.2
 ```
 **Penjelasan**:
 
 Perintah ```iptables``` tersebut dijalankan pada node Heiter (Router), yang merupakan router yang berada diantara node Webserver Sein dan Stark. 
-```iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.47.4.2 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.47.4.2```
+```iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.19.4.2 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.19.4.2```
 
-```iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.47.4.2 -j DNAT --to-destination 10.47.0.10```
+```iptables -A PREROUTING -t nat -p tcp --dport 80 -d 10.19.4.2 -j DNAT --to-destination 10.19.0.10```
 Perintah tersebut digunakan untuk distribusi koneksi HTTP (Port 80) pada Sein dan Stark secara bergantian
 
 
-```iptables -A PREROUTING -t nat -p tcp --dport 443 -d 10.47.0.10 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.47.0.10```
+```iptables -A PREROUTING -t nat -p tcp --dport 443 -d 10.19.0.10 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 10.19.0.10```
 
-```iptables -A PREROUTING -t nat -p tcp --dport 443 -d 10.47.0.10 -j DNAT --to-destination 10.47.4.2```
+```iptables -A PREROUTING -t nat -p tcp --dport 443 -d 10.19.0.10 -j DNAT --to-destination 10.19.4.2```
 Perintah tersebut digunakan untuk distribusi koneksi HTTPS (Port 443) pada Sein dan Stark secara bergantian
 
 - ```-A PREROUTING```: Menambahkan aturan pada rantai PREROUTING dalam tabel nat.
@@ -93,10 +93,10 @@ Perintah tersebut digunakan untuk distribusi koneksi HTTPS (Port 443) pada Sein 
 - ```-p tcp```: Menentukan protokol TCP.
 - ```--dport 80```: Menentukan port tujuan 80 (HTTP).
 - ```--dport 443```: Menentukan port tujuan 4430 (HTTPS).
-- ```-d 10.47.4.2```: Menentukan destinasi IP 10.47.4.2.
+- ```-d 10.19.4.2```: Menentukan destinasi IP 10.19.4.2.
 - ```-m statistic --mode nth --every 2 --packet 0```: Menggunakan modul statistic untuk mendistribusikan koneksi secara bergantian setiap dua paket.
 - ```-j DNAT --to-destination```: Mengubah alamat tujuan koneksi (DNAT).
-- ```10.47.4.2``` dan ```10.47.0.10```: Alamat IP destinasi Sein dan Stark.
+- ```10.19.4.2``` dan ```10.19.0.10```: Alamat IP destinasi Sein dan Stark.
 
 **Hasil**:
 
@@ -113,14 +113,14 @@ Perintah tersebut digunakan untuk distribusi koneksi HTTPS (Port 443) pada Sein 
 Di WebServer (`Stark` dan `Sein`) jalankan:
 
 ```sh
-iptables -A INPUT -p tcp --dport 80 -s 192.223.14.128/30 -m time --datestart 2023-12-10 --datestop 2024-02-15 -j DROP
+iptables -A INPUT -p tcp --dport 80 -s 10.19.14.128/30 -m time --datestart 2023-12-10 --datestop 2024-02-15 -j DROP
 ```
 
 Penjelasan:
 * `-A INPUT`: Menambahkan aturan pada chain INPUT (masukan).
 * `-p tcp`: Menetapkan protokol TCP.
 * `--dport 80`: Membatasi aturan untuk paket yang menuju ke port 80 (port HTTP).
-* `-s 192.223.14.128/30`: Menentukan alamat sumber (source).
+* `-s 10.19.14.128/30`: Menentukan alamat sumber (source).
 * `-m time --datestart 2023-12-10 --datestop 2024-02-15`: Menentukan aturan berdasarkan waktu. Aturan ini hanya berlaku untuk paket-paket yang diterima antara tanggal 10 Desember 2023 dan 15 Februari 2024.
 * `-j DROP`: Menetapkan tindakan yang harus diambil jika paket sesuai dengan aturan ini, yaitu menolak (DROP).
 
