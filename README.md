@@ -229,3 +229,8 @@ iptables -A INPUT  -j LOG --log-level debug --log-prefix 'Dropped Packet' -m lim
 - `-m limit --limit 1/second --limit-burst 10`: Menentukan pembatasan jumlah log yang dihasilkan. Dengan konfigurasi ini, setidaknya satu entri log akan dibuat per detik, dan jika jumlah log mencapai 10 dalam satu detik, log akan dibatasi untuk menghindari terlalu banyak entri log yang diciptakan.
 
 Dengan aturan ini, setiap kali sebuah paket ditolak oleh chain INPUT, informasi log akan dicatat dengan awalan "Dropped Packet" dan level debug. Ini dapat membantu kepala suku atau administrator sistem untuk memantau aktivitas yang terkait dengan paket yang ditolak dan memahami alasan mengapa paket tersebut ditolak. Penting untuk memastikan bahwa sistem memiliki konfigurasi syslog yang tepat untuk mengarahkan log ke lokasi yang sesuai.
+
+
+**Hasil**
+
+<img width="629" alt="image" src="https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/91776952/3267fc53-e075-4a9c-a2c5-a8f99f5bbd3d">
