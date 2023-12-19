@@ -206,30 +206,11 @@ Dengan konfigurasi ini, iptables akan secara otomatis memblokir alamat IP yang m
 <hr style="width:60%; align:center">
 
 
-```sh
-iptables -A INPUT  -j LOG --log-level debug --log-prefix 'Dropped Packet' -m limit --limit 1/second --limit-burst 10
+Semua router dan server: 
 ```
-
-**Penjelasan**
-
-Script iptables yang diberikan menambahkan aturan untuk mencatat (log) paket yang ditolak (DROP) pada chain INPUT. Berikut adalah penjelasan poin-poin dalam script tersebut:
-
-```bash
-iptables -A INPUT  -j LOG --log-level debug --log-prefix 'Dropped Packet' -m limit --limit 1/second --limit-burst 10
+iptables -A INPUT -j LOG --log-level info --log-prefix "DROPPED: "
 ```
-
-- `iptables -A INPUT`: Menambahkan aturan pada chain INPUT, yang berarti aturan ini akan berlaku untuk paket yang ditujukan ke sistem.
-
-- `-j LOG`: Mengarahkan paket yang memenuhi aturan ini untuk dicatat (log).
-
-- `--log-level debug`: Menentukan tingkat log sebagai "debug". Level ini akan mencakup informasi lebih rinci dalam log.
-
-- `--log-prefix 'Dropped Packet'`: Menentukan awalan (prefix) untuk setiap entri log yang dihasilkan, sehingga mempermudah identifikasi log yang berkaitan dengan paket yang ditolak.
-
-- `-m limit --limit 1/second --limit-burst 10`: Menentukan pembatasan jumlah log yang dihasilkan. Dengan konfigurasi ini, setidaknya satu entri log akan dibuat per detik, dan jika jumlah log mencapai 10 dalam satu detik, log akan dibatasi untuk menghindari terlalu banyak entri log yang diciptakan.
-
-Dengan aturan ini, setiap kali sebuah paket ditolak oleh chain INPUT, informasi log akan dicatat dengan awalan "Dropped Packet" dan level debug. Ini dapat membantu kepala suku atau administrator sistem untuk memantau aktivitas yang terkait dengan paket yang ditolak dan memahami alasan mengapa paket tersebut ditolak. Penting untuk memastikan bahwa sistem memiliki konfigurasi syslog yang tepat untuk mengarahkan log ke lokasi yang sesuai.
-
+Perintah `iptables -A INPUT -j LOG --log-level info --log-prefix "DROPPED: "` menambahkan aturan ke rantai INPUT pada tabel iptables untuk menulis pesan log ke sistem ketika paket ditolak. Opsi `-j LOG` menunjukkan bahwa pesan log harus ditulis ke sistem. Opsi `--log-level info` menunjukkan bahwa pesan log harus ditulis dengan level informasi. Opsi `--log-prefix "DROPPED: " ` menunjukkan bahwa pesan log harus dimulai dengan string "DROPPED: ".
 
 **Hasil**
 
