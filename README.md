@@ -7,6 +7,209 @@
 | 1      |Anneu Tsabita Putri               | 5025211026 |
 | 2      | Cavel Ferrari                    | 5025211198 |
 
+## Subnetting
+![subnetting](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/29ae2d1e-77be-4645-8ff7-70f270ef379b)
+
+## Tree
+![tree](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/0c36d668-46ca-472a-8466-e0fa0a58313a)
+
+## Rute
+![rute5](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/3a027b0b-e84d-47c6-93dc-349dc97ed944)
+
+## Pembagian IP Subnet
+![pembagianIP](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/cb8e9b0d-be69-4992-8957-2e2c6e0935d3)
+
+## Konfigurasi IP
+- Aura
+  ```
+  auto eth0
+  iface eth0 inet dhcp
+
+  auto eth1
+  iface eth1 inet static
+	  address 10.19.0.1
+	  netmask 255.255.255.252
+
+  auto eth2
+  iface eth2 inet static
+	  address 10.19.0.5
+	  netmask 255.255.255.252
+  ```
+
+- Heiter
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.6
+	  netmask 255.255.255.252
+	  gateway 10.19.0.5
+
+  auto eth1
+  iface eth1 inet static
+	  address 10.19.4.1
+	  netmask 255.255.252.0
+
+  auto eth2
+  iface eth2 inet static
+	  address 10.19.8.1
+    netmask 255.255.248.0
+  ```
+  
+  - GrobeForest
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.4.2
+	  netmask 255.255.252.0
+	  gateway 10.19.4.1
+  ```
+    
+- Sein
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.4.3
+	  netmask 255.255.252.0
+	  gateway 10.19.4.1
+  ```
+  
+- TurkRegion
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.8.2
+	  netmask 255.255.248.0
+	  gateway 10.19.8.1
+  ```
+  
+- Frieren
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.2
+	  netmask 255.255.255.252
+	  gateway 10.19.0.1
+
+  auto eth1
+  iface eth1 inet static
+	  address 10.19.0.9
+	  netmask 255.255.255.252
+
+  auto eth2
+  iface eth2 inet static
+	  address 10.19.0.13
+	  netmask 255.255.255.252
+  ```
+  
+- Himmel
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.10
+	  netmask 255.255.255.252
+	  gateway 10.19.0.9
+
+  auto eth1
+  iface eth1 inet static
+	  address 10.19.2.1
+	  netmask 255.255.254.0
+
+  auto eth2
+  iface eth2 inet static
+	  address 10.19.0.129
+	  netmask 255.255.255.128
+  ```
+  
+- Stark
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.14
+	  netmask 255.255.255.252
+	  gateway 10.19.0.13
+  ```
+  
+- LaubHills
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.2.2
+	  netmask 255.255.254.0
+	  gateway 10.19.2.1
+  ```
+
+  - Fern
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.130
+	  netmask 255.255.255.128
+	  gateway 10.19.0.129
+
+  auto eth1
+  iface eth1 inet static
+	  address 10.19.0.17
+	  netmask 255.255.255.252
+
+  auto eth2
+  iface eth2 inet static
+	  address 10.19.0.21
+	  netmask 255.255.255.252
+  ```
+  
+- SchwerMountains
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.131
+	  netmask 255.255.255.128
+	  gateway 10.19.0.129
+  ```
+
+  - Richter
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.18
+	  netmask 255.255.255.252
+	  gateway 10.19.0.17
+  ```
+
+  - Revolte
+  ```
+  auto eth0
+  iface eth0 inet static
+	  address 10.19.0.22
+	  netmask 255.255.255.252
+	  gateway 10.19.0.21
+  ```
+
+## Routing
+- Aura
+  ```
+  route add -net 10.19.4.0 netmask 255.255.252.0 gw 10.19.0.6
+  route add -net 10.19.8.0 netmask 255.255.248.0 gw 10.19.0.6
+  route add -net 10.19.0.8 netmask 255.255.255.252 gw 10.19.0.2
+  route add -net 10.19.0.12 netmask 255.255.255.252 gw 10.19.0.2
+  route add -net 10.19.2.0 netmask 255.255.254.0 gw 10.19.0.2
+  route add -net 10.19.0.128 netmask 255.255.255.128 gw 10.19.0.2
+  route add -net 10.19.0.16 netmask 255.255.255.252 gw 10.19.0.2
+  route add -net 10.19.0.20 netmask 255.255.255.252 gw 10.19.0.2
+  ```
+
+- Frieren
+  ```
+  route add -net 10.19.2.0 netmask 255.255.254.0 gw 10.19.0.10
+  route add -net 10.19.0.128 netmask 255.255.255.128 gw 10.19.0.10
+  route add -net 10.19.0.16 netmask 255.255.255.252 gw 10.19.0.10
+  route add -net 10.19.0.20 netmask 255.255.255.252 gw 10.19.0.10
+  ```
+
+- Himmel
+  ```
+  route add -net 10.19.0.16 netmask 255.255.255.252 gw 10.19.0.130
+  route add -net 10.19.0.20 netmask 255.255.255.252 gw 10.19.0.130
+  ```
 
 ### No.6
 
