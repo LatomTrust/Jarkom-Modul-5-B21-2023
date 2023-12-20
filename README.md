@@ -226,7 +226,8 @@ iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source $ETH0_IP
 ```
 
 #### Testing
-
+![satu2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/0c13340e-3fb0-4b6f-8440-b0de98365916)
+![satu3](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/0c248828-b230-4516-a3f8-4324ab2122bb)
 
 ### No.2
 
@@ -255,7 +256,8 @@ iptables -A INPUT -p udp -j DROP
 ```
 
 #### Testing
-
+![dua1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/61ec47a8-2f72-401d-a38a-64e6031e4861)
+![dua2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/9ae46a01-41b6-4ced-8b26-20ff550ece23)
 
 ### No.3
 
@@ -272,7 +274,10 @@ iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j
 ```
 
 #### Testing
-
+![tiga1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/0ded159c-f07e-4357-9279-268f622603d6)
+![tiga2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/47fbf502-9769-4c8d-aaac-dea6634096ab)
+![tiga3](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/318f82f1-c1c1-4b4c-b61d-925e8d15c103)
+![tiga4](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/99a6d878-e516-4095-a428-738ac88c1c05)
 
 ### No.4
 
@@ -289,7 +294,9 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 ```
 
 #### Testing
-
+![empat1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/90c5b5c0-f8e5-4055-aa7b-01437c68578b)
+![empat2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/1685280e-459b-4874-89a5-5d00f0ade91b)
+![empat3](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/a927398c-2ba3-45e0-a918-ecb5e68bd211)
 
 ### No.5
 
@@ -302,8 +309,8 @@ iptables -A INPUT -p tcp --dport 80 -m time --timestart 08:00 --timestop 16:00 -
 ```
 
 #### Testing
-
-
+![lima1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/ff87c0e3-043e-47a9-8a4b-3873c3d1555a)
+![lima2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/67691f14-777f-42df-83aa-fd59b33a216d)
 
 ### No.6
 
