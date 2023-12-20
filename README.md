@@ -138,7 +138,7 @@
 	  gateway 10.19.2.1
   ```
 
-  - Fern
+- Fern
   ```
   auto eth0
   iface eth0 inet static
@@ -166,7 +166,7 @@
 	  gateway 10.19.0.129
   ```
 
-  - Richter
+- Richter
   ```
   auto eth0
   iface eth0 inet static
@@ -175,7 +175,7 @@
 	  gateway 10.19.0.17
   ```
 
-  - Revolte
+- Revolte
   ```
   auto eth0
   iface eth0 inet static
@@ -210,6 +210,100 @@
   route add -net 10.19.0.16 netmask 255.255.255.252 gw 10.19.0.130
   route add -net 10.19.0.20 netmask 255.255.255.252 gw 10.19.0.130
   ```
+
+### No.1
+
+> Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Aura menggunakan iptables, tetapi tidak ingin menggunakan MASQUERADE.
+
+#### Aura
+Ambil alamat IP dari antarmuka eth0 dan simpan dalam variabel ETH0_IP:
+```
+ETH0_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+```
+Tambahkan aturan pada chain POSTROUTING pada tabel nat dan lakukan SNAT (Source NAT) pada paket-paket yang keluar melalui antarmuka eth0, mengganti alamat sumber dengan alamat IP eth0 pada Aura:
+```
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source $ETH0_IP
+```
+
+#### Testing
+
+
+### No.2
+
+> Kalian diminta untuk melakukan drop semua TCP dan UDP kecuali port 8080 pada TCP.
+
+#### Sein, Stark, GrobeForest
+Tulis alamat IP nameserver `192.168.122.1` ke file `/etc/resolv.conf` untuk menetapkan server DNS yang akan digunakan oleh sistem:
+```
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
+```
+Lakukan pembaruan paket `apt-get update` dan instal netcat `apt-get install netcat -y`:
+```
+apt-get update
+apt-get install netcat -y
+```
+Lakukan onfigurasi iptables:
+```
+# Mengizinkan koneksi TCP yang ditujukan ke port 8080
+iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+
+# Menolak semua koneksi TCP yang tidak sesuai dengan aturan pertama, sehingga hanya koneksi ke port 8080 yang diterima
+iptables -A INPUT -p tcp -j DROP
+
+# Menolak semua koneksi UDP
+iptables -A INPUT -p udp -j DROP
+```
+
+#### Testing
+
+
+### No.3
+
+> Kepala Suku North Area meminta kalian untuk membatasi DHCP dan DNS Server hanya dapat dilakukan ping oleh maksimal 3 device secara bersamaan, selebihnya akan di drop.
+
+#### Revolte, Richter
+Pastikan koneksi yang sudah ada atau terkait diterima, memungkinkan layanan seperti DHCP dan DNS untuk berfungsi:
+```
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+```
+Pastikan juga jumlah koneksi ICMP (ping) yang diterima tidak melebihi 3 per detik. Jika jumlah tersebut terlampaui, paket ICMP yang berlebihan akan ditolak:
+```
+iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
+```
+
+#### Testing
+
+
+### No.4
+
+> Lakukan pembatasan sehingga koneksi SSH pada Web Server hanya dapat dilakukan oleh masyarakat yang berada pada GrobeForest.
+
+#### Sein, Stark
+Izinkan koneksi SSH dari alamat IP yang berada dalam rentang `192.182.4.0/22`:
+```
+iptables -A INPUT -p tcp --dport 22 -s 192.182.4.0/22 -j ACCEPT
+```
+Tolak semua koneksi SSH yang berasal dari sumber selain rentang IP `192.182.4.0/22`:
+```
+iptables -A INPUT -p tcp --dport 22 -j DROP
+```
+
+#### Testing
+
+
+### No.5
+
+> Selain itu, akses menuju WebServer hanya diperbolehkan saat jam kerja yaitu Senin-Jumat pada pukul 08.00-16.00.
+
+#### Sein, Stark
+Akses ke WebServer pada port 80 hanya diizinkan pada hari Senin hingga Jumat dan pada jam kerja antara pukul 08:00 dan 16:00. Pada waktu lain atau pada hari Sabtu dan Minggu, tidak akan memungkinkan akses HTTP:
+```
+iptables -A INPUT -p tcp --dport 80 -m time --timestart 08:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+```
+
+#### Testing
+
+
 
 ### No.6
 
