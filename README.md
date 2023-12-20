@@ -55,7 +55,7 @@
     netmask 255.255.248.0
   ```
   
-  - GrobeForest
+- GrobeForest
   ```
   auto eth0
   iface eth0 inet static
@@ -256,6 +256,7 @@ iptables -A INPUT -p udp -j DROP
 ```
 
 #### Testing
+Koneksi ke port 8080 open, selain 8080 misal 50 filtered.
 ![dua1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/61ec47a8-2f72-401d-a38a-64e6031e4861)
 ![dua2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/9ae46a01-41b6-4ced-8b26-20ff550ece23)
 
@@ -274,6 +275,7 @@ iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j
 ```
 
 #### Testing
+Client yang bisa melakukan ping secara bersamaan hanya 3 client, yaitu SchwerMountains, LaubHills, dan TurkRegion. Sedangkan GrobeForest tidak bisa.
 ![tiga1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/0ded159c-f07e-4357-9279-268f622603d6)
 ![tiga2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/47fbf502-9769-4c8d-aaac-dea6634096ab)
 ![tiga3](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/318f82f1-c1c1-4b4c-b61d-925e8d15c103)
@@ -294,6 +296,7 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 ```
 
 #### Testing
+Client yang bisa melakukan koneksi SSH pada Web Server (Stark) hanya GrobeForest, sedangkan selain itu misalnya TurkRegion tidak bisa.
 ![empat1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/90c5b5c0-f8e5-4055-aa7b-01437c68578b)
 ![empat2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/1685280e-459b-4874-89a5-5d00f0ade91b)
 ![empat3](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/a927398c-2ba3-45e0-a918-ecb5e68bd211)
@@ -309,6 +312,7 @@ iptables -A INPUT -p tcp --dport 80 -m time --timestart 08:00 --timestop 16:00 -
 ```
 
 #### Testing
+Akses menuju WebServer (Stark) hanya bisa dilakukan saat jam kerja yaitu Senin-Jumat pada pukul 08.00-16.00. Jika diakses pada jam 20.00, koneksi akan filtered.
 ![lima1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/ff87c0e3-043e-47a9-8a4b-3873c3d1555a)
 ![lima2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/67691f14-777f-42df-83aa-fd59b33a216d)
 
