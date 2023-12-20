@@ -215,7 +215,7 @@
 
 > Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Aura menggunakan iptables, tetapi tidak ingin menggunakan MASQUERADE.
 
-#### Aura
+- Aura
 Ambil alamat IP dari antarmuka eth0 dan simpan dalam variabel ETH0_IP:
 ```
 ETH0_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
@@ -232,7 +232,7 @@ iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source $ETH0_IP
 
 > Kalian diminta untuk melakukan drop semua TCP dan UDP kecuali port 8080 pada TCP.
 
-#### Sein, Stark, GrobeForest
+- Sein, Stark, GrobeForest
 Tulis alamat IP nameserver `192.168.122.1` ke file `/etc/resolv.conf` untuk menetapkan server DNS yang akan digunakan oleh sistem:
 ```
 echo 'nameserver 192.168.122.1' > /etc/resolv.conf
@@ -261,7 +261,7 @@ iptables -A INPUT -p udp -j DROP
 
 > Kepala Suku North Area meminta kalian untuk membatasi DHCP dan DNS Server hanya dapat dilakukan ping oleh maksimal 3 device secara bersamaan, selebihnya akan di drop.
 
-#### Revolte, Richter
+- Revolte, Richter
 Pastikan koneksi yang sudah ada atau terkait diterima, memungkinkan layanan seperti DHCP dan DNS untuk berfungsi:
 ```
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -278,7 +278,7 @@ iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j
 
 > Lakukan pembatasan sehingga koneksi SSH pada Web Server hanya dapat dilakukan oleh masyarakat yang berada pada GrobeForest.
 
-#### Sein, Stark
+- Sein, Stark
 Izinkan koneksi SSH dari alamat IP yang berada dalam rentang `192.182.4.0/22`:
 ```
 iptables -A INPUT -p tcp --dport 22 -s 192.182.4.0/22 -j ACCEPT
@@ -295,7 +295,7 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 
 > Selain itu, akses menuju WebServer hanya diperbolehkan saat jam kerja yaitu Senin-Jumat pada pukul 08.00-16.00.
 
-#### Sein, Stark
+- Sein, Stark
 Akses ke WebServer pada port 80 hanya diizinkan pada hari Senin hingga Jumat dan pada jam kerja antara pukul 08:00 dan 16:00. Pada waktu lain atau pada hari Sabtu dan Minggu, tidak akan memungkinkan akses HTTP:
 ```
 iptables -A INPUT -p tcp --dport 80 -m time --timestart 08:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
