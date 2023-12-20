@@ -275,7 +275,7 @@ iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j
 ```
 
 #### Testing
-Client yang bisa melakukan ping secara bersamaan hanya 3 client, yaitu SchwerMountains, LaubHills, dan TurkRegion. Sedangkan GrobeForest tidak bisa.
+Client yang bisa melakukan ping secara bersamaan hanya 3 client, yaitu SchwerMountains, LaubHills, dan TurkRegion. Sedangkan GrobeForest tidak bisa melakukan ping.
 ![tiga1](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/0ded159c-f07e-4357-9279-268f622603d6)
 ![tiga2](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/47fbf502-9769-4c8d-aaac-dea6634096ab)
 ![tiga3](https://github.com/LatomTrust/Jarkom-Modul-5-B21-2023/assets/114276069/318f82f1-c1c1-4b4c-b61d-925e8d15c103)
